@@ -18,3 +18,18 @@ Route::get('/', function () {
 Route::get('/hello-world', function () {
     return view('examples/hello-world');
 });
+
+Route::group(['prefix' => '/layout'], function() {
+    Route::get('/', function () {
+        return view('examples/layout/full-layout');
+    });
+
+    Route::get('/inherited', function () {
+        return view('examples/layout/inherited/child');
+    });
+
+    Route::get('/overrided-menu', function () {
+        return view('examples/layout/inherited/child-with-overrided-menu');
+    });
+});
+
