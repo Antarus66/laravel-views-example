@@ -27,7 +27,9 @@
             <div class="row">
                 {{-- Content --}}
                 <div class="col-md-12 main">
-                    <p>This is my body content.</p>
+                    @section('content')
+                        <p>This is my body content.</p>
+                    @show
                 </div>
             </div>
         </div>
