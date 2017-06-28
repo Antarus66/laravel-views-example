@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="panel panel-default">
-        <div class="panel-heading">Add a bike</div>
         <div class="panel-body">
             <form class="form-horizontal" role="form" method="POST" action="{{ route('bike-store') }}">
                 {{ csrf_field() }}
@@ -38,10 +37,10 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
-                    <label for="photo" class="col-md-4 control-label">Photo</label>
+                    <label for="photo" class="col-md-4 control-label">Photo URl</label>
 
                     <div class="col-md-6">
-                        <input id="photo" type="text" class="form-control" name="photo" value="{{ old('photo') }}" required autofocus>
+                        <input id="photo" type="text" class="form-control" name="photo" value="{{ old('photo') }}" required>
 
                         @if ($errors->has('photo'))
                             <span class="help-block">
