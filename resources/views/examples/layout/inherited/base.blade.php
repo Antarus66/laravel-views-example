@@ -4,31 +4,32 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, width=device-width">
         <title>@yield('title')</title>
-        <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+              integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+              crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+                integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+                crossorigin="anonymous">
+        </script>
     </head>
     <body>
         {{-- Header --}}
-        <nav class="navbar navbar-inverse">
-            @section('header')
-                This is the master header.
-            @show
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+            <div class="collapse navbar-collapse">
+                @section('header')
+                    <a class="navbar-brand" href="#">Laravel Views Example</a>
+                @show
+            </div>
         </nav>
 
         <div class="container-fluid">
             <div class="row">
-                {{-- Sidebar --}}
-                <div class="col-md-2 sidebar">
-                    @section('sidebar')
-                        This is the master sidebar.
-                    @show
-                </div>
-
                 {{-- Content --}}
-                <div class="col-md-10 col-md-offset-2 main">
-                    @yield('content')
+                <div class="col-md-12 main">
+                    <p>This is my body content.</p>
                 </div>
             </div>
         </div>
-
     </body>
 </html>

@@ -5,15 +5,17 @@
 
 {{-- Rewrites the section --}}
 @section('header')
-    Overrided header
-@endsection
-
-{{-- Rewrites the section --}}
-@section('sidebar')
     {{-- Returns pre-defined --}}
     @parent
 
-    <p>This is appended to the base sidebar.</p>
+    {{-- Appends --}}
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
 @endsection
 
 {{-- Yields to the place of @yield --}}
