@@ -26,7 +26,7 @@ Route::group(['prefix' => '/layout'], function() {
 
     Route::get('/inherited', function () {
         return view('examples/layout/inherited/child');
-    });
+    })->name('inherited-layout');
 
     Route::get('/overrided-menu', function () {
         return view('examples/layout/inherited/child-with-overrided-menu');
@@ -34,6 +34,6 @@ Route::group(['prefix' => '/layout'], function() {
 
     Route::get('/slots', function () {
         return view('examples/layout/with-slots/child');
-    });
+    })->name('layout-with-slots');
 });
 
