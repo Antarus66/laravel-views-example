@@ -16,7 +16,7 @@ class BikeController extends Controller
             'description' => 'The Komodo frame is 100% designed for 27.5” wheels and trail riding with Kinesis '
                 . 'aluminum tubing, oversized rear stays with a 12 x 142 thru-axle hub and a tapered head tube '
                 . 'to serve up strength and stiffness for better handling and steering.',
-            'photo' => 'http://www.jamisbikes.com/usa/assets/16_komodocomp.jpg',
+            'photo' => 'http://sportsline.com.ua/products_pictures/jamis-komodo--comp-2015.jpg',
             'in_stock' => true
         ], [
             'id' => 2,
@@ -25,7 +25,7 @@ class BikeController extends Controller
                 . '27.5” diameter. Combining them with a 40mm rim, results in the ultimate combination of tract'
                 . 'ion, roll-over and versatility without being too heavy, too bouncy, too tall or feeling leth'
                 . 'argic on the trail.',
-            'photo' => 'http://www.jamisbikes.com/usa/assets/17_komodo26-sport.jpg',
+            'photo' => 'http://www.greenmountainbikes.com/wp-content/uploads/2017/05/5908f383ba95e.jpg',
             'in_stock' => false
         ],
     ];
