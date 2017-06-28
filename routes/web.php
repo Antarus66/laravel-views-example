@@ -40,6 +40,7 @@ Route::group(['prefix' => '/layout'], function() {
 Route::group(['prefix' => 'bikes'], function () {
     Route::get('/', 'BikeController@index')->name('bike-list');
     Route::get('/create', 'BikeController@create')->name('bike-form');
+    Route::get('/create/simple', 'BikeController@createSimple')->name('bike-form-simple');
     Route::post('/', 'BikeController@store')->name('bike-store');
     Route::get('/{id}', 'BikeController@show')->name('bike-show');
 });

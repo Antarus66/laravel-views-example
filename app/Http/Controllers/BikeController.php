@@ -57,6 +57,11 @@ class BikeController extends Controller
         return view('examples/bikes/create');
     }
 
+    public function createSimple()
+    {
+        return view('examples/bikes/create-simple');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

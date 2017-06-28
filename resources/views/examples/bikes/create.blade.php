@@ -15,9 +15,7 @@
                         <input id="model" type="text" class="form-control" name="model" value="{{ old('model') }}" required autofocus>
 
                         @if ($errors->has('model'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('model') }}</strong>
-                            </span>
+                            <span class="help-block">{{ $errors->first('model') }}</span>
                         @endif
                     </div>
                 </div>
@@ -29,9 +27,7 @@
                         <textarea id="description" type="text" class="form-control" name="description" required>{{ old('description') }}</textarea>
 
                         @if ($errors->has('description'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
+                            <span class="help-block">{{ $errors->first('description') }}</span>
                         @endif
                     </div>
                 </div>
@@ -43,9 +39,7 @@
                         <input id="photo" type="text" class="form-control" name="photo" value="{{ old('photo') }}" required>
 
                         @if ($errors->has('photo'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('photo') }}</strong>
-                            </span>
+                            <span class="help-block">{{ $errors->first('photo') }}</span>
                         @endif
                     </div>
                 </div>
