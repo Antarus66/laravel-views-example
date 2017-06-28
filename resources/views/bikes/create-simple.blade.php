@@ -1,4 +1,4 @@
-@extends('examples.bikes.base')
+@extends('bikes.base')
 
 @section('title', 'Add a new bike')
 

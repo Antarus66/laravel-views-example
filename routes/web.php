@@ -16,24 +16,24 @@ Route::get('/', function () {
 });
 
 Route::get('/hello-world', function () {
-    return view('examples/hello-world');
+    return view('hello-world');
 });
 
 Route::group(['prefix' => '/layout'], function() {
     Route::get('/', function () {
-        return view('examples/layout/full-layout');
+        return view('layout/full-layout');
     });
 
     Route::get('/inherited', function () {
-        return view('examples/layout/inherited/child');
+        return view('layout/inherited/child');
     })->name('inherited-layout');
 
-    Route::get('/overrided-menu', function () {
-        return view('examples/layout/inherited/child-with-overrided-menu');
+    Route::get('/inherited/overrided', function () {
+        return view('layout/inherited/child-with-overrided-menu');
     });
 
     Route::get('/slots', function () {
-        return view('examples/layout/with-slots/child');
+        return view('layout/with-slots/child');
     })->name('layout-with-slots');
 });
 

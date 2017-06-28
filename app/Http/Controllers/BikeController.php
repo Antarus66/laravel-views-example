@@ -44,7 +44,7 @@ class BikeController extends Controller
      */
     public function index()
     {
-        return view('examples/bikes/index', ['bikes' => $this->bikes->toArray()]);
+        return view('bikes/index', ['bikes' => $this->bikes->toArray()]);
     }
 
     /**
@@ -54,12 +54,12 @@ class BikeController extends Controller
      */
     public function create()
     {
-        return view('examples/bikes/create');
+        return view('bikes/create');
     }
 
     public function createSimple()
     {
-        return view('examples/bikes/create-simple');
+        return view('bikes/create-simple');
     }
 
     /**
@@ -77,7 +77,7 @@ class BikeController extends Controller
 
         $this->bikes->add($data);
 
-        return view('examples/bikes/index', ['bikes' => $this->bikes->toArray()]);
+        return view('bikes/index', ['bikes' => $this->bikes->toArray()]);
     }
 
     /**
@@ -91,7 +91,7 @@ class BikeController extends Controller
         $bike = $this->bikes->where('id', $id)->first();
 
         if ($bike) {
-            return view('examples/bikes/show', $bike);
+            return view('bikes/show', $bike);
         } else {
             return view('errors/404');
         }

@@ -1,4 +1,4 @@
-@extends('examples.layout.inherited.base')
+@extends('layout.inherited.base')
 
 {{-- Yields to the place of @yield --}}
 @section('title', 'Laravel Views Example')

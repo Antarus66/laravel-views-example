@@ -1,9 +1,9 @@
-@extends('examples.layout.with-slots.base')
+@extends('layout.inherited.base')
 
 {{-- Yields to the place of @yield --}}
 @section('title', 'Laravel Views Example')
 
-{{-- Rewrites the section --}}
+{{-- Yields to the place of @yield --}}
 @section('content')
-    <p>New content.</p>
+    <p>Child content.</p>
 @endsection

@@ -15,7 +15,7 @@
     </head>
     <body>
         {{-- Header --}}
-        @component('examples.layout.with-slots.header')
+        @component('layout.with-slots.header')
             {{-- Goes to slot --}}
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
@@ -26,7 +26,7 @@
             </div>
         @endcomponent
 
-        @component('examples.layout.with-slots.content-wrapper')
+        @component('layout.with-slots.content-wrapper')
             {{-- Goes to slot --}}
             @section('content')
                 {{-- Rewritten in child templates --}}
