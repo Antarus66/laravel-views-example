@@ -64,9 +64,12 @@ class BikeController extends Controller
      */
     public function store(Request $request)
     {
-        // todo: get bike data
-        // todo: add it to collection
-        // todo: redirect user to bikes list with a new bike
+        $data = $request->only(['model', 'description', 'photo', 'in_stock']);
+
+        $lastIndex = $this->bikes->max('id');
+        $data['id'] = $lastIndex + 1;
+
+        $this->bikes->add($data);
 
         return view('examples/bikes/index', ['bikes' => $this->bikes->toArray()]);
     }

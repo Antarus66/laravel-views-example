@@ -38,10 +38,10 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
-                    <label for="model" class="col-md-4 control-label">Photo</label>
+                    <label for="photo" class="col-md-4 control-label">Photo</label>
 
                     <div class="col-md-6">
-                        <input id="model" type="text" class="form-control" name="model" value="{{ old('photo') }}" required autofocus>
+                        <input id="photo" type="text" class="form-control" name="photo" value="{{ old('photo') }}" required autofocus>
 
                         @if ($errors->has('photo'))
                             <span class="help-block">
