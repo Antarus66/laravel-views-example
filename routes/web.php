@@ -31,5 +31,9 @@ Route::group(['prefix' => '/layout'], function() {
     Route::get('/overrided-menu', function () {
         return view('examples/layout/inherited/child-with-overrided-menu');
     });
+
+    Route::get('/slots', function () {
+        return view('examples/layout/with-slots/child');
+    });
 });
 
