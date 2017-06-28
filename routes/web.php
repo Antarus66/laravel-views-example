@@ -37,3 +37,9 @@ Route::group(['prefix' => '/layout'], function() {
     })->name('layout-with-slots');
 });
 
+Route::group(['prefix' => 'bikes'], function () {
+    Route::get('/', 'BikeController@index')->name('bike-list');
+    Route::get('/create', 'BikeController@create')->name('bike-form');
+    Route::post('/', 'BikeController@store')->name('bike-store');
+    Route::get('/{id}', 'BikeController@show')->name('bike-show');
+});
