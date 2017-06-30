@@ -25,7 +25,7 @@ Route::get('/xss-example', function () {
         "<script>
             (function () {
                 var a = document.createElement('a');
-                a.href = 'http://example.com';
+                a.href = 'http://cdimage.kali.org/kali-2017.1/kali-linux-xfce-2017.1-amd64.iso';
                 a.innerHTML = 'Download Petya';
                 document.body.appendChild(a);
 
