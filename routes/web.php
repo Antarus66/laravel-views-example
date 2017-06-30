@@ -22,14 +22,16 @@ Route::get('/hello-world', function () {
 Route::get('/xss-example', function () {
     return view('xss-example')->with(
         'greeting',
-        "<script>(function () {
-            var a = document.createElement('a');
-            a.href = 'http://example.com';
-            a.innerHTML = 'Download Petya';
-            document.body.appendChild(a);
+        "<script>
+            (function () {
+                var a = document.createElement('a');
+                a.href = 'http://example.com';
+                a.innerHTML = 'Download Petya';
+                document.body.appendChild(a);
 
-            alert('You are hacked');
-         })();</script>"
+                alert('You are hacked');
+            })();
+         </script>"
     );
 });
 
