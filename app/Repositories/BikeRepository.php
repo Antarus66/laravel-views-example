@@ -23,7 +23,7 @@ class BikeRepository extends AbstractRepository implements RepositoryInterface
                 . '27.5” diameter. Combining them with a 40mm rim, results in the ultimate combination of tract'
                 . 'ion, roll-over and versatility without being too heavy, too bouncy, too tall or feeling leth'
                 . 'argic on the trail.',
-            'photo' => 'http://www.greenmountainbikes.com/wp-content/uploads/2017/05/5908f383ba95e.jpg',
+            'photo' => 'http://www.bikesourceonline.com/images/library/zoom/jamis-komodo-27.5-sport-282514-1.jpg',
             'in_stock' => false
         ],
     ];
