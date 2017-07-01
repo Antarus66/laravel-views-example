@@ -21,6 +21,10 @@
         .container {
             padding-top: 20px;
         }
+
+        .help-block {
+            color: darkred;
+        }
     </style>
 </head>
 <body>
