@@ -19,6 +19,22 @@ Route::get('/hello-world', function () {
     return view('hello-world');
 });
 
+Route::get('/xss-example', function () {
+    return view('xss-example')->with(
+        'greeting',
+        "<script>
+            (function () {
+                var a = document.createElement('a');
+                a.href = 'http://cdimage.kali.org/kali-2017.1/kali-linux-xfce-2017.1-amd64.iso';
+                a.innerHTML = 'Download Petya';
+                document.body.appendChild(a);
+
+                alert('You are hacked');
+            })();
+         </script>"
+    );
+});
+
 Route::group(['prefix' => '/layout'], function() {
     Route::get('/', function () {
         return view('layout/full-layout');
