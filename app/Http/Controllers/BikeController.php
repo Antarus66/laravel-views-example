@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Bicycle;
 use App\Http\Requests\ValidatedBikeRequest;
 use App\Repositories\Contracts\BikeRepositoryInterface;
 use App\Repositories\Exceptions\NotFoundException;
@@ -32,7 +33,7 @@ class BikeController extends Controller
             ]);
         }
 
-        return view('bikes/index', ['bikes' => $bikes]);
+        return view('bikes/index', ['bikes' => $bikes->toArray()]);
     }
 
     /**
@@ -59,9 +60,10 @@ class BikeController extends Controller
     public function store(ValidatedBikeRequest $request)
     {
         $data = $request->only(['model', 'description', 'photo', 'in_stock']);
-        $updatedCollection = $this->bikesRepository->addItem($data);
+        $bike = new Bicycle($data);
+        $updatedCollection = $this->bikesRepository->store($bike);
 
-        return view('bikes/index', ['bikes' => $updatedCollection]);
+        return view('bikes/index', ['bikes' => $updatedCollection->toArray()]);
     }
 
     /**
@@ -78,6 +80,6 @@ class BikeController extends Controller
             return view('errors/404');
         }
 
-        return view('bikes/show', $bike);
+        return view('bikes/show', $bike->toArray());
     }
 }

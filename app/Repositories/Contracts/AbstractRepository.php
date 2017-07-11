@@ -3,13 +3,13 @@
 namespace App\Repositories\Contracts;
 
 use App\Repositories\Exceptions\NotFoundException;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class AbstractRepository
  * @package App\Repositories\Contracts
  */
-class AbstractRepository implements RepositoryInterface
+abstract class AbstractRepository implements RepositoryInterface
 {
     /**
      * @var array Raw mock data.
@@ -23,27 +23,44 @@ class AbstractRepository implements RepositoryInterface
 
     public function __construct()
     {
-        $this->itemsCollection = new Collection($this->itemsData);
+        $this->itemsCollection = new Collection();
+
+        foreach ($this->itemsData as $data) {
+            $item = $this->createEntity($data);
+            $this->itemsCollection->push($item);
+        }
     }
+
+    /**
+     * Creates an entity of a repository type
+     *
+     * @param array $data
+     * @return mixed
+     */
+    abstract protected function createEntity(array $data);
 
     /**
      * @inheritdoc
      */
-    public function getAll() : array
+    public function getAll() : Collection
     {
         if ($this->itemsCollection->isEmpty()) {
             throw new NotFoundException('the collection is empty');
         }
 
-        return $this->itemsCollection->toArray();
+        return $this->itemsCollection->sortBy(function ($entity) {
+            return $entity->getId();
+        });
     }
 
     /**
      * @inheritdoc
      */
-    public function getById(int $id) : array
+    public function getById(int $id)
     {
-        $item = $this->itemsCollection->where('id', $id)->first();
+        $item = $this->itemsCollection->filter(function ($entity) use ($id) {
+            return $entity->getId() === $id;
+        })->first();
 
         if (!$item) {
             throw new NotFoundException("No item #$id");
@@ -55,42 +72,74 @@ class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function addItem(array $data) : array
+    public function addItem($entity) : Collection
     {
-        $lastIndex = $this->itemsCollection->max('id');
-        $data['id'] = $lastIndex + 1;
-        $this->itemsCollection->push($data);
+        $entity->setId($this->getNextIndex());
+        $this->itemsCollection = $this->itemsCollection->push($entity);
 
-        return $this->itemsCollection->toArray();
+        return $this->getAll();
     }
 
     /**
      * @inheritdoc
      */
-    public function update(int $id, array $data) : array
+    public function update($entity) : Collection
     {
-        if ($this->itemsCollection->where('id', $id)->empty()) {
-            throw new NotFoundException("No item #$id");
+        $id = $entity->getId();
+
+        $notFound = $this->itemsCollection->filter(function ($entity) use ($id) {
+            return $entity->getId() == $id;
+        })->isEmpty();
+
+        if ($notFound) {
+            throw new NotFoundException("No item is found.");
         }
 
-        $this->itemsCollection = $this->itemsCollection->map(function ($item, $key) use ($id, $data) {
-            if ($item['id'] == $id) {
-                $item = $data;
-                return $item;
-            }
+        $this->delete($id);
+        $this->itemsCollection = $this->itemsCollection->push($entity);
 
-            return $item;
-        });
-
-        return $this->itemsCollection->toArray();
+        return $this->getAll();
     }
 
     /**
      * @inheritdoc
      */
-    public function delete(int $id) : array
+    public function store($entity) : Collection
     {
-        $this->itemsCollection = $this->itemsCollection->whereNotIn('id', $id);
-        return $this->itemsCollection->toArray();
+        try {
+            return $this->update($entity);
+        } catch (NotFoundException $e) {
+            return $this->addItem($entity);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete(int $id) : Collection
+    {
+        $this->itemsCollection = $this->itemsCollection->filter(function ($entity) use ($id) {
+            return $entity->getId() !== $id;
+        });
+
+        return $this->getAll();
+    }
+
+    /**
+     * Calculates a new id.
+     *
+     * @return int
+     */
+    private function getNextIndex() : int
+    {
+        $i = 0;
+
+        $this->itemsCollection->each(function ($entity) use (&$i) {
+            if ($entity->getId() > $i) {
+                $i = $entity->getId();
+            }
+        });
+
+        return $i + 1;
     }
 }

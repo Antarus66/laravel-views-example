@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Entities\Bicycle;
 use App\Repositories\Contracts\AbstractRepository;
 use App\Repositories\Contracts\BikeRepositoryInterface;
 
@@ -33,4 +34,9 @@ class BikeRepository extends AbstractRepository implements BikeRepositoryInterfa
             'in_stock' => false
         ],
     ];
+
+    protected function createEntity(array $data) : Bicycle
+    {
+        return new Bicycle($data);
+    }
 }

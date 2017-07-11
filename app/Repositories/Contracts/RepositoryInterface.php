@@ -3,6 +3,8 @@
 namespace App\Repositories\Contracts;
 
 use App\Repositories\Exceptions\NotFoundException;
+use Illuminate\Database\Eloquent\Collection;
+
 
 /**
  * Interface RepositoryInterface
@@ -11,10 +13,10 @@ use App\Repositories\Exceptions\NotFoundException;
 interface RepositoryInterface
 {
     /**
-     * @return array
+     * @return Collection
      * @throws NotFoundException
      */
-    public function getAll() : array;
+    public function getAll() : Collection;
 
     /**
      * Returns an item by id.
@@ -23,30 +25,37 @@ interface RepositoryInterface
      * @return mixed
      * @throws NotFoundException
      */
-    public function getById(int $id) : array;
+    public function getById(int $id);
 
     /**
-     * Adds an item.
+     * Adds an entity.
      *
-     * @param array $data A new item data.
-     * @return array An updated items array.
+     * @param mixed $entity A new item data.
+     * @return Collection An updated items array.
      */
-    public function addItem(array $data) : array;
+    public function addItem($entity) : Collection;
 
     /**
-     * Updates an item by id with data.
+     * Updates an entity in collection.
      *
-     * @param int $id
-     * @param array $data Edited item data.
-     * @return array An updated collection
+     * @param mixed $entity Edited item.
+     * @return Collection An updated collection
      */
-    public function update(int $id, array $data) : array;
+    public function update($entity) : Collection;
+
+    /**
+     * Updates an entity in the collection if exists. Adds if no.
+     *
+     * @param mixed $entity
+     * @return Collection
+     */
+    public function store($entity) : Collection;
 
     /**
      * Removes an item by id.
      *
-     * @param $id
-     * @return array An updated collection
+     * @param int $id
+     * @return Collection An updated collection
      */
-    public function delete(int $id) : array;
+    public function delete(int $id) : Collection;
 }
