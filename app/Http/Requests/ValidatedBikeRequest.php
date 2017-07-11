@@ -26,7 +26,7 @@ class ValidatedBikeRequest extends FormRequest
         return [
             'model'       => 'required|min:2|max:255',
             'description' => 'required|min:10|max:512',
-            'photo'       => 'required|url|active_url',
+            'photo'       => 'required|url',
             'in_stock'    => 'boolean'
         ];
     }
@@ -35,7 +35,6 @@ class ValidatedBikeRequest extends FormRequest
     {
         return [
             'photo.url'        => 'Are you sure this is a link?!',
-            'photo.active_url' => 'Are you sure the link is fresh? It doesn\'t work.',
             'description.min'  => 'Just describe how awesome this bike is!'
         ];
     }

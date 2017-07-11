@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidatedBikeRequest;
-use App\Repositories\BikeRepository;
+use App\Repositories\Contracts\BikeRepositoryInterface;
 use App\Repositories\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,7 +12,7 @@ class BikeController extends Controller
 {
     private $bikesRepository;
 
-    public function __construct(BikeRepository $bikeRepository)
+    public function __construct(BikeRepositoryInterface $bikeRepository)
     {
         $this->bikesRepository = $bikeRepository;
     }
@@ -26,7 +26,7 @@ class BikeController extends Controller
     {
         $bikes = $this->bikesRepository->getAll();
 
-        return view('bikes/index', ['bikes' => $bikes->toArray()]);
+        return view('bikes/index', ['bikes' => $bikes]);
     }
 
     /**
@@ -53,9 +53,9 @@ class BikeController extends Controller
     public function store(ValidatedBikeRequest $request)
     {
         $data = $request->only(['model', 'description', 'photo', 'in_stock']);
-        $updatedCollection = $this->bikesRepository->add($data);
+        $updatedCollection = $this->bikesRepository->addItem($data);
 
-        return view('bikes/index', ['bikes' => $updatedCollection->toArray()]);
+        return view('bikes/index', ['bikes' => $updatedCollection]);
     }
 
     /**

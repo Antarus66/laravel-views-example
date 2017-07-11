@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Repositories\Contracts\AbstractRepository;
-use App\Repositories\Contracts\RepositoryInterface;
+use App\Repositories\Contracts\BikeRepositoryInterface;
 
-class BikeRepository extends AbstractRepository implements RepositoryInterface
+class BikeRepository extends AbstractRepository implements BikeRepositoryInterface
 {
     protected $itemsData = [
         [

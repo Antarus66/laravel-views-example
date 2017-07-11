@@ -8,5 +8,5 @@ interface RepositoryInterface
 
     public function getById($id);
 
-    public function add($data);
+    public function addItem($data);
 }

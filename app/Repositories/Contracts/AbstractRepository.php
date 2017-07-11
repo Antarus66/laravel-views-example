@@ -18,7 +18,7 @@ class AbstractRepository implements RepositoryInterface
 
     public function getAll()
     {
-        return $this->itemsCollection;
+        return $this->itemsCollection->toArray();
     }
 
     public function getById($id)
@@ -32,12 +32,12 @@ class AbstractRepository implements RepositoryInterface
         return $item;
     }
 
-    public function add($data)
+    public function addItem($data)
     {
         $lastIndex = $this->itemsCollection->max('id');
         $data['id'] = $lastIndex + 1;
-        $this->itemsCollection->add($data);
+        $this->itemsCollection->push($data);
 
-        return $this->itemsCollection;
+        return $this->itemsCollection->toArray();
     }
 }
