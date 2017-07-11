@@ -35,6 +35,9 @@ class BikeRepository extends AbstractRepository implements BikeRepositoryInterfa
         ],
     ];
 
+    /**
+     * @inheritdoc
+     */
     protected function createEntity(array $data) : Bicycle
     {
         return new Bicycle($data);

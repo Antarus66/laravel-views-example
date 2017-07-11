@@ -2,6 +2,10 @@
 
 namespace App\Entities\Contracts;
 
+/**
+ * Interface VehicleInterface
+ * @package App\Entities\Contracts
+ */
 interface VehicleInterface
 {
     /**
