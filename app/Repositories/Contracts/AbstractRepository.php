@@ -31,6 +31,10 @@ class AbstractRepository implements RepositoryInterface
      */
     public function getAll() : array
     {
+        if ($this->itemsCollection->isEmpty()) {
+            throw new NotFoundException('the collection is empty');
+        }
+
         return $this->itemsCollection->toArray();
     }
 

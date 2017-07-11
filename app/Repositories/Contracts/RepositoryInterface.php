@@ -11,7 +11,8 @@ use App\Repositories\Exceptions\NotFoundException;
 interface RepositoryInterface
 {
     /**
-     * @return array Returns all the items.
+     * @return array
+     * @throws NotFoundException
      */
     public function getAll() : array;
 
