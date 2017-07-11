@@ -13,7 +13,7 @@ interface RepositoryInterface
     /**
      * @return array Returns all the items.
      */
-    public function getAll();
+    public function getAll() : array;
 
     /**
      * Returns an item by id.
@@ -22,7 +22,7 @@ interface RepositoryInterface
      * @return mixed
      * @throws NotFoundException
      */
-    public function getById($id);
+    public function getById(int $id) : array;
 
     /**
      * Adds an item.
@@ -30,5 +30,22 @@ interface RepositoryInterface
      * @param array $data A new item data.
      * @return array An updated items array.
      */
-    public function addItem($data);
+    public function addItem(array $data) : array;
+
+    /**
+     * Updates an item by id with data.
+     *
+     * @param int $id
+     * @param array $data Edited item data.
+     * @return array An updated collection
+     */
+    public function update(int $id, array $data) : array;
+
+    /**
+     * Removes an item by id.
+     *
+     * @param $id
+     * @return array An updated collection
+     */
+    public function delete(int $id) : array;
 }

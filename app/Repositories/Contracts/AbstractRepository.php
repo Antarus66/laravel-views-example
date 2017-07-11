@@ -29,7 +29,7 @@ class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getAll()
+    public function getAll() : array
     {
         return $this->itemsCollection->toArray();
     }
@@ -37,7 +37,7 @@ class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getById($id)
+    public function getById(int $id) : array
     {
         $item = $this->itemsCollection->where('id', $id)->first();
 
@@ -51,12 +51,38 @@ class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function addItem($data)
+    public function addItem(array $data) : array
     {
         $lastIndex = $this->itemsCollection->max('id');
         $data['id'] = $lastIndex + 1;
         $this->itemsCollection->push($data);
 
+        return $this->itemsCollection->toArray();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(int $id, array $data) : array
+    {
+        $this->itemsCollection = $this->itemsCollection->map(function ($item, $key) use ($id, $data) {
+            if ($item['id'] == $id) {
+                $item = $data;
+                return $item;
+            }
+
+            return $item;
+        });
+
+        return $this->itemsCollection->toArray();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete(int $id) : array
+    {
+        $this->itemsCollection = $this->itemsCollection->whereNotIn('id', $id);
         return $this->itemsCollection->toArray();
     }
 }
