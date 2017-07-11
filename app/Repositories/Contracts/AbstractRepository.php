@@ -69,6 +69,10 @@ class AbstractRepository implements RepositoryInterface
      */
     public function update(int $id, array $data) : array
     {
+        if ($this->itemsCollection->where('id', $id)->empty()) {
+            throw new NotFoundException("No item #$id");
+        }
+
         $this->itemsCollection = $this->itemsCollection->map(function ($item, $key) use ($id, $data) {
             if ($item['id'] == $id) {
                 $item = $data;
