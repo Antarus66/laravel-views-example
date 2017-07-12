@@ -14,20 +14,22 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @var array Raw mock data.
      */
-    protected $itemsData;
+    protected static $itemsData;
 
     /**
      * @var Collection Wrapped data to handy work with.
      */
-    protected $itemsCollection;
+    protected static $itemsCollection;
 
     public function __construct()
     {
-        $this->itemsCollection = new Collection();
+        if (!empty(self::$itemsCollection)) {
+            return;
+        }
 
-        foreach ($this->itemsData as $data) {
+        foreach (static::$itemsData as $data) {
             $item = $this->createEntity($data);
-            $this->itemsCollection->push($item);
+            self::$itemsCollection->push($item);
         }
     }
 
@@ -44,7 +46,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function getAll() : Collection
     {
-        return $this->itemsCollection->sortBy(function ($entity) {
+        return self::$itemsCollection->sortBy(function ($entity) {
             return $entity->getId();
         });
     }
@@ -54,7 +56,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function getById(int $id)
     {
-        $item = $this->itemsCollection->filter(function ($entity) use ($id) {
+        $item = self::$itemsCollection->filter(function ($entity) use ($id) {
             return $entity->getId() === $id;
         })->first();
 
@@ -71,7 +73,7 @@ abstract class AbstractRepository implements RepositoryInterface
     public function addItem($entity) : Collection
     {
         $entity->setId($this->getNextIndex());
-        $this->itemsCollection = $this->itemsCollection->push($entity);
+        self::$itemsCollection = self::$itemsCollection->push($entity);
 
         return $this->getAll();
     }
@@ -83,7 +85,7 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         $id = $entity->getId();
 
-        $notFound = $this->itemsCollection->filter(function ($entity) use ($id) {
+        $notFound = self::$itemsCollection->filter(function ($entity) use ($id) {
             return $entity->getId() == $id;
         })->isEmpty();
 
@@ -92,7 +94,7 @@ abstract class AbstractRepository implements RepositoryInterface
         }
 
         $this->delete($id);
-        $this->itemsCollection = $this->itemsCollection->push($entity);
+        self::$itemsCollection = self::$itemsCollection->push($entity);
 
         return $this->getAll();
     }
@@ -114,7 +116,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function delete(int $id) : Collection
     {
-        $this->itemsCollection = $this->itemsCollection->filter(function ($entity) use ($id) {
+        self::$itemsCollection = self::$itemsCollection->filter(function ($entity) use ($id) {
             return $entity->getId() !== $id;
         });
 
@@ -126,11 +128,13 @@ abstract class AbstractRepository implements RepositoryInterface
      *
      * @return int
      */
-    private function getNextIndex() : int
+    public static function getNextIndex() : int
     {
         $i = 0;
 
-        $this->itemsCollection->each(function ($entity) use (&$i) {
+        $max = self::$itemsCollection->max('id');
+
+        self::$itemsCollection->each(function ($entity) use (&$i) {
             if ($entity->getId() > $i) {
                 $i = $entity->getId();
             }

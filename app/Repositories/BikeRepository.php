@@ -14,7 +14,7 @@ class BikeRepository extends AbstractRepository implements BikeRepositoryInterfa
     /**
      * @inheritdoc
      */
-    protected $itemsData = [
+    protected static $itemsData = [
         [
             'id' => 1,
             'model' => 'Jamis Comodo Comp',
