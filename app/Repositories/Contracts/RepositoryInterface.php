@@ -14,7 +14,6 @@ interface RepositoryInterface
 {
     /**
      * @return Collection
-     * @throws NotFoundException
      */
     public function getAll() : Collection;
 
@@ -23,7 +22,6 @@ interface RepositoryInterface
      *
      * @param $id
      * @return mixed
-     * @throws NotFoundException
      */
     public function getById(int $id);
 
@@ -40,6 +38,7 @@ interface RepositoryInterface
      *
      * @param mixed $entity Edited item.
      * @return Collection An updated collection
+     * @throws NotFoundException
      */
     public function update($entity) : Collection;
 

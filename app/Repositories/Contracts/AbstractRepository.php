@@ -27,6 +27,8 @@ abstract class AbstractRepository implements RepositoryInterface
             return;
         }
 
+        self::$itemsCollection = new Collection();
+
         foreach (static::$itemsData as $data) {
             $item = $this->createEntity($data);
             self::$itemsCollection->push($item);
@@ -131,8 +133,6 @@ abstract class AbstractRepository implements RepositoryInterface
     public static function getNextIndex() : int
     {
         $i = 0;
-
-        $max = self::$itemsCollection->max('id');
 
         self::$itemsCollection->each(function ($entity) use (&$i) {
             if ($entity->getId() > $i) {
