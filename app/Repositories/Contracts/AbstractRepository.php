@@ -59,7 +59,7 @@ abstract class AbstractRepository implements RepositoryInterface
         })->first();
 
         if (!$item) {
-            throw new NotFoundException("No item is found.");
+            return null;
         }
 
         return $item;

@@ -68,9 +68,9 @@ class BikeController extends Controller
      */
     public function show($id)
     {
-        try {
-            $bike = $this->bikesRepository->getById($id);
-        } catch (NotFoundException $e) {
+        $bike = $this->bikesRepository->getById($id);
+
+        if (is_null($bike)) {
             return view('errors/404');
         }
 
