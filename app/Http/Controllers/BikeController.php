@@ -25,13 +25,7 @@ class BikeController extends Controller
      */
     public function index()
     {
-        try {
-            $bikes = $this->bikesRepository->getAll();
-        } catch (NotFoundException $e) {
-            return view('bikes/index', [
-                'bikes' => [],
-            ]);
-        }
+        $bikes = $this->bikesRepository->getAll();
 
         return view('bikes/index', ['bikes' => $bikes->toArray()]);
     }

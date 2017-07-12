@@ -44,10 +44,6 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function getAll() : Collection
     {
-        if ($this->itemsCollection->isEmpty()) {
-            throw new NotFoundException('the collection is empty');
-        }
-
         return $this->itemsCollection->sortBy(function ($entity) {
             return $entity->getId();
         });
